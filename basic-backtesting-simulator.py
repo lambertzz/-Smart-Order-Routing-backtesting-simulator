@@ -55,3 +55,19 @@ def evaluate_strategy(executed_prices, traded_volumes, benchmark):
         'Slippage': slippage
     }
 
+# Main function
+if __name__ == "__main__":
+    # Step 1: Create synthetic data
+    market_data = generate_market_data()
+    
+    # Step 2: Define trading parameters
+    total_volume_to_trade = 10_000
+    num_intervals = 10
+    benchmark_price = market_data['Price'].mean()  # Using VWAP as a benchmark
+
+    # Step 3: Execute the TWAP strategy
+    executed_prices, traded_volumes = execute_twap(
+        data=market_data,
+        total_volume=total_volume_to_trade,
+        intervals=num_intervals
+    )
