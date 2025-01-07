@@ -46,4 +46,12 @@ def evaluate_strategy(executed_prices, traded_volumes, benchmark):
     # Weighted average price of executed trades
     avg_execution_price = np.average(executed_prices, weights=traded_volumes)
     
+    # Metrics: Execution cost and slippage
+    execution_cost = avg_execution_price - benchmark
+    slippage = max(executed_prices) - min(executed_prices)
     
+    return {
+        'Execution Cost': execution_cost,
+        'Slippage': slippage
+    }
+
