@@ -71,3 +71,15 @@ if __name__ == "__main__":
         total_volume=total_volume_to_trade,
         intervals=num_intervals
     )
+
+    # Step 4: Evaluate strategy performance
+    metrics = evaluate_strategy(
+        executed_prices=executed_prices,
+        traded_volumes=traded_volumes,
+        benchmark=benchmark_price
+    )
+
+    # Step 5: Output results
+    print("Strategy Performance Metrics:")
+    for metric, value in metrics.items():
+        print(f"{metric}: {value:.2f}")
