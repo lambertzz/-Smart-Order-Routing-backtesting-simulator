@@ -21,3 +21,29 @@ def generate_market_data(points=1000):
         'Price': prices,
         'Volume': volumes
     })
+
+# Execute TWAP strategy
+def execute_twap(data, total_volume, intervals):
+    # Divide total volume equally across intervals
+    volume_per_interval = total_volume // intervals
+    prices_during_execution = []
+    traded_volumes = []
+    
+    # Split data into intervals and calculate average price for each
+    for interval in range(intervals):
+        start = interval * (len(data) // intervals)
+        end = (interval + 1) * (len(data) // intervals)
+        interval_data = data.iloc[start:end]
+        
+        avg_price = interval_data['Price'].mean()
+        prices_during_execution.append(avg_price)
+        traded_volumes.append(volume_per_interval)
+    
+    return prices_during_execution, traded_volumes
+
+# Calculate performance metrics
+def evaluate_strategy(executed_prices, traded_volumes, benchmark):
+    # Weighted average price of executed trades
+    avg_execution_price = np.average(executed_prices, weights=traded_volumes)
+    
+    
